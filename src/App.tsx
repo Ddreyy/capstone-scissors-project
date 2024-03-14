@@ -10,7 +10,6 @@ import {
   Dashboard,
   NewLink,
   Analytics,
-  // MyLinks,
   QRCodes,
   Settings,
 } from './pages';
@@ -52,7 +51,6 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/new" element={<NewLink />} />
               <Route path="/dashboard/analytics" element={<Analytics />} />
-              {/* <Route path="/dashboard/my-links" element={<MyLinks />} /> */}
               <Route path="/dashboard/qr-codes" element={<QRCodes />} />
               <Route path="/dashboard/settings" element={<Settings />} />
             </Route>
