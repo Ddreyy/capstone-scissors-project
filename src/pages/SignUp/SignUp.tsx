@@ -12,13 +12,17 @@ import appleLogo from '../../assets/icons/apple-logo.svg';
 import { ToastContainer } from 'react-toastify';
 import { inform, notify, warn } from '../../App';
 import { Button, Input, Footer, Loader } from '../../components';
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { db, auth } from '../../utils/firebase/config'
+
 
 interface FormFields {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
+  timestamp: () => {};
 }
 
 const defaultFormFields: FormFields = {
@@ -26,14 +30,19 @@ const defaultFormFields: FormFields = {
   email: '',
   password: '',
   confirmPassword: '',
+  timestamp: serverTimestamp,
+
 };
 
 const SignUp: React.FC = () => {
-  const navigateTo = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [loadingApple, setLoadingApple] = useState(false);
+
+  const navigateTo = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
+  const { name, email, password, confirmPassword } = formFields;
 
   const redirectToLogin = () => {
     setTimeout(() => {
@@ -41,24 +50,8 @@ const SignUp: React.FC = () => {
     }, 2500);
   };
 
-  // const signInWithGoogle = async () => {
-  //   setLoadingGoogle(true);
-  //   await signInWithGooglePopup();
-  //   notify('Redirecting you to login page');
-  //   redirectToLogin();
-  //   setLoadingGoogle(false);
-  // };
 
-  // const signInWithApple = async () => {
-  //   setLoadingApple(true);
-  //   await signInWithGooglePopup();
-  //   notify('Redirecting you to login page');
-  //   redirectToLogin();
-  //   setLoadingApple(false);
-  // };
 
-  const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
-  const { name, email, password, confirmPassword } = formFields;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -69,49 +62,42 @@ const SignUp: React.FC = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-  
-    if (password !== confirmPassword) {
-      inform('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-  
+
     try {
-      // Call the Firebase function to create a user
-      const userCredential = await createAuthUserWithEmailAndPassword(email, password);
-    
-      if (userCredential) {
-        // Extract user data from the user credential
-        const user = userCredential.user;
-  
-        // Create user document in Firestore
-        await createUserDocumentFromAuth({
-          uid: user.uid,
-          displayName: name,
-          email: user.email,
-        });
-  
-        notify('Success, redirecting you to the login page');
-        redirectToLogin();
-      } else {
-        warn('Error creating user');
+      // const auth = getAuth()
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+
+      const user = userCredentials.user
+
+      if (user) {
+        await updateProfile(auth.currentUser!, {
+          displayName: name
+        })
+        notify("Successful, you're being redirected to the Login page")
+        redirectToLogin()
       }
+
+      const { password: _, ...formFieldsCopy } = formFields; // Create a copy without the 'password' field
+
+      formFieldsCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc(db, 'users', user.uid), formFieldsCopy);
+
+
     } catch (err) {
       console.error('Error signing up', err);
       warn(`Error signing up, ${err}`);
-    } finally {
-      // Reset form fields and loading state
-      resetFormFields();
       setLoading(false);
+      console.log(err);
     }
   }
-  
+
+
   return (
     <>
-      <section className="h-full bg-white">
+      <section className="h-screen mt-[110px] bg-white">
         <ToastContainer />
         <div className="flex h-full md:min-h-full w-full flex-col items-center justify-start md:flex-row md:justify-center">
           <div className="order-1 flex h-fit w-full items-center justify-center md:order-2 md:h-full md:w-[45%]">
@@ -130,7 +116,7 @@ const SignUp: React.FC = () => {
                     <div className="mr-6">
                       <button
                         disabled={loadingGoogle}
-                        // onClick={signInWithGoogle}
+                        onClick={() => { }}
                         className="flex items-center w-fit min-w-[6.8125rem] justify-center rounded bg-primary py-1.5 text-white transition duration-200 hover:scale-90 disabled:scale-100 disabled:cursor-not-allowed active:scale-100"
                       >
                         {loadingGoogle ? (
@@ -150,7 +136,7 @@ const SignUp: React.FC = () => {
                     <div>
                       <button
                         disabled={loadingApple}
-                        // onClick={signInWithApple}
+                        onClick={() => { }}
                         className="flex items-center w-fit min-w-[6.8125rem] justify-center rounded bg-primary py-1.5 text-white transition duration-200 hover:scale-90 active:scale-100 disabled:scale-100 disabled:cursor-not-allowed"
                       >
                         {loadingApple ? (

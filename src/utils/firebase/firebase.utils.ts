@@ -13,17 +13,19 @@ import {
   signInWithPopup,
   NextOrObserver,
   User,
+  updateProfile
 } from 'firebase/auth';
 // import 'firebase/dynamic-links';
 // import { dynamicLinks } from 'firebase/dynamic-links';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBswKfugyslPABkfL2cEmAI0GKqZ8BwFwE",
-  authDomain: "scissors-e5deb.firebaseapp.com",
-  projectId: "scissors-e5deb",
-  storageBucket: "scissors-e5deb.appspot.com",
-  messagingSenderId: "503017755543",
-  appId: "1:503017755543:web:ef20b6df814e9c0a302ad2"
+  apiKey: "AIzaSyCzoOtxso2FacKAnkkYauIO6YEQ1mmzOis",
+  authDomain: "scissors-4f501.firebaseapp.com",
+  projectId: "scissors-4f501",
+  storageBucket: "scissors-4f501.appspot.com",
+  messagingSenderId: "45889873516",
+  appId: "1:45889873516:web:26bb63d356eb75ba811a49",
+  measurementId: "G-2D6WJ3SSL1"
 };
 
 const fireabaseApp = initializeApp(firebaseConfig);
@@ -41,17 +43,17 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 export const createUserDocumentFromAuth = async (
-  users: { uid?: any; displayName?: any; email?: any },
+  userAuth: { uid?: any; displayName?: any; email?: any },
   additionalInformation = {}
 ) => {
-  if (!users) return;
+  if (!userAuth) return;
 
-  const userDocRef = doc(db, 'users', users.uid);
+  const userDocRef = doc(db, 'users', userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = users;
+    const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {

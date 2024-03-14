@@ -1,100 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithGooglePopup, signInUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
+import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils';
 import crossedEye from '../../assets/icons/crossed-eye.svg';
 import eye from '../../assets/icons/eye.svg';
 import googleLogo from '../../assets/icons/google-logo.svg';
 import appleLogo from '../../assets/icons/apple-logo.svg';
 
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { db, auth } from '../../utils/firebase/config'
 import { ToastContainer } from 'react-toastify';
 import { warn, notify } from '../../App';
 import { Button, Input, Footer, Loader } from '../../components';
 import { useAuth } from '../../contexts/UserContext/UserContext';
 
 interface FormFields {
-  username: string;
+  email: string;
   password: string;
 }
 
 const defaultFormFields: FormFields = {
-  username: '',
+  email: '',
   password: '',
 };
 
 const Login: React.FC = () => {
   const { user, setUser } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [loadingApple, setLoadingApple] = useState(false);
-  const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
-  const navigateTo = useNavigate();
-  const { username, password } = formFields;
 
-  const navigateToHome = () => {
-    navigateTo('/'); // Navigate to the home page
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
+  const { email, password } = formFields;
+  const navigateTo = useNavigate();
+
+  const navigateToDashboard = () => {
+    setTimeout(() => {
+      navigateTo('/dashboard');
+    }, 2500);
+    console.log("Logging in...");
   };
 
-  // const signInWithApple = async () => {
-  //   setLoadingApple(true);
-  //   try {
-  //     await signInWithGooglePopup();
-  //     notify("Successful, you're being redirected");
-  //     navigateToHome(); // Navigate to home after successful login
-  //     setLoadingApple(false);
-  //   } catch (error: any) {
-  //     // handle error
-  //     setLoadingApple(false);
-  //   }
-  // };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  // const signInWithGoogle = async () => {
-  //   setLoadingGoogle(true);
-  //   try {
-  //     await signInWithGooglePopup();
-  //     notify("Successful, you're being redirected");
-  //     navigateToHome(); // Navigate to home after successful login
-  //     setLoadingGoogle(false);
-  //   } catch (error: any) {
-  //     // handle error
-  //     setLoadingGoogle(false);
-  //   }
-  // };
+    try {
+      const auth = getAuth()
+
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+
+      if (userCredentials.user) {
+        notify("Successful, you're being redirected");
+        navigateToDashboard();
+        setLoadingApple(false);
+      }
+
+    } catch (err: any) {
+      warn(err.message)
+    }
+
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormFields({ ...formFields, [name]: value });
+
+    setFormFields(prevState => ({
+      ...prevState,
+      [e.target.id]: e.target.value
+    }))
   };
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      // Sign in using Firebase Authentication
-      await signInUserWithEmailAndPassword(username, password);
-
-      // If sign in is successful, notify user and redirect
-      notify("Login success, you're being redirected");
-      resetFormFields();
-      navigateToHome(); // Navigate to home after successful login
-      setLoading(false);
-    } catch (error: any) {
-      // handle error
-      warn(`Error: ${error.message}`);
-      setLoading(false);
-      console.error('Error:', error.message);
-    }
-  };
-
-  useEffect(() => {
-    if (user) navigateToHome(); // Navigate to home if user is already logged in
-  }, [user]); // Add user as a dependency  
-
 
 
   return (
@@ -115,7 +98,7 @@ const Login: React.FC = () => {
                     <div className="mr-6">
                       <button
                         disabled={loadingGoogle}
-                        // onClick={signInWithGoogle}
+                        onClick={() => { }}
                         className="flex items-center w-fit min-w-[6.8125rem] justify-center rounded bg-primary py-1.5 text-white transition duration-200 hover:scale-90 disabled:scale-100 disabled:cursor-not-allowed active:scale-100"
                       >
                         {loadingGoogle ? (
@@ -123,7 +106,7 @@ const Login: React.FC = () => {
                         ) : (
                           <>
                             <img
-                              src={googleLogo}
+                              src={`${googleLogo}`}
                               alt="google"
                               className="mr-1"
                             />
@@ -135,14 +118,14 @@ const Login: React.FC = () => {
                     <div>
                       <button
                         disabled={loadingApple}
-                        // onClick={signInWithApple}
+                        onClick={() => { }}
                         className="flex items-center w-fit min-w-[6.8125rem] justify-center rounded bg-primary py-1.5 text-white transition duration-200 hover:scale-90 active:scale-100 disabled:scale-100 disabled:cursor-not-allowed"
                       >
                         {loadingApple ? (
                           <Loader />
                         ) : (
                           <>
-                            <img src={appleLogo} alt="apple" className="mr-1" />{' '}
+                            <img src={`${appleLogo}`} alt="apple" className="mr-1" />{' '}
                             Apple
                           </>
                         )}
@@ -151,7 +134,7 @@ const Login: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-center mb-8">
                     <div className="h-[1px] w-full bg-neutral-400"></div>
-                    <div className="mx-5                     mb-1 mt-0.5 flex justify-center text-neutral-500">
+                    <div className="mx-5 mb-1 mt-0.5 flex justify-center text-neutral-500">
                       Or
                     </div>
                     <div className="h-[1px] w-full bg-neutral-400"></div>
@@ -161,11 +144,11 @@ const Login: React.FC = () => {
                       <div className="mb-4">
                         <Input
                           py="12px"
-                          type="text"
-                          name="username"
-                          id="username"
-                          placeholder="Email address or username"
-                          value={username}
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Email"
+                          value={email}
                           onChange={handleChange}
                           required
                         />
@@ -189,12 +172,12 @@ const Login: React.FC = () => {
                           }}
                         />
                         <span
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={() => setShowPassword(prevState => !prevState)}
                           className="flex cursor-pointer items-center justify-center"
                         >
                           <img
                             className="h-6"
-                            src={showPassword ? crossedEye : eye}
+                            src={showPassword ? `${crossedEye}` : `${eye}`}
                             alt="Show Password"
                           />
                         </span>
@@ -219,7 +202,7 @@ const Login: React.FC = () => {
                       to="/sign-up"
                     >
                       {' '}
-                      Sign Up
+                      Sign Up Instead
                     </Link>
                   </div>
                   <div className="text-neutral-400 text-center text-xs">
@@ -246,4 +229,3 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-

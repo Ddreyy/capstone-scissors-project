@@ -10,7 +10,7 @@ import {
   Dashboard,
   NewLink,
   Analytics,
-  MyLinks,
+  // MyLinks,
   QRCodes,
   Settings,
 } from './pages';
@@ -20,10 +20,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from './contexts';
 import ProtectedRoute from './utils/ProtectedRoute/ProtectedRoute';
 
-
 const toastParams = {
   position: 'top-right' as const,
-  autoClose: 2500,
+  autoClose: 3000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: false,
@@ -32,9 +31,7 @@ const toastParams = {
   theme: 'light' as const,
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-// eslint-disable-next-line react-refresh/only-export-components
-// eslint-disable-next-line react-refresh/only-export-components
+
 export const notify = (val: string): string | number =>
   toast.success(`${val}`, toastParams);
 export const warn = (val: string): string | number =>
@@ -50,12 +47,12 @@ function App() {
           <Route path="/" element={<Navbar />}>
             <Route index element={<Home />} />
             <Route path="*" element={<Error />} />
-            <Route path="/get-quote" element={<GetInTouch />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} /> 
+            <Route path="/get-quote" element={<GetInTouch />} /> 
+              <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/new" element={<NewLink />} />
               <Route path="/dashboard/analytics" element={<Analytics />} />
-              <Route path="/dashboard/my-links" element={<MyLinks />} />
+              {/* <Route path="/dashboard/my-links" element={<MyLinks />} /> */}
               <Route path="/dashboard/qr-codes" element={<QRCodes />} />
               <Route path="/dashboard/settings" element={<Settings />} />
             </Route>

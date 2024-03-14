@@ -137,7 +137,7 @@ console.log(authenticatedUser?.profile_photo)
                 </div>
               </div>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/dashboard/my-links"
               className={`w-[calc(100%_-_3rem)]`}
             >
@@ -188,8 +188,8 @@ console.log(authenticatedUser?.profile_photo)
                   <div className="ml-3">My Links</div>
                 </div>
               </div>
-            </NavLink>
-            <NavLink
+            </NavLink> */}
+            {/* <NavLink
               to="/dashboard/qr-codes"
               className={`w-[calc(100%_-_3rem)]`}
             >
@@ -228,8 +228,8 @@ console.log(authenticatedUser?.profile_photo)
                   <div className="ml-3 whitespace-pre">QR Codes</div>
                 </div>
               </div>
-            </NavLink>
-            <NavLink
+            </NavLink> */}
+            {/* <NavLink
               to="/dashboard/analytics"
               className="w-[calc(100%_-_3rem)]"
             >
@@ -273,7 +273,7 @@ console.log(authenticatedUser?.profile_photo)
                   <div className="ml-3">Analytics</div>
                 </span>
               </div>
-            </NavLink>
+            </NavLink> */}
             <div className="h-[1px] w-[calc(100%_-_3rem)] bg-gray-200 my-4"></div>
             <NavLink to="/dashboard/settings" className="w-[calc(100%_-_3rem)]">
               <div

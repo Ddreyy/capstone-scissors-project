@@ -5,19 +5,19 @@ import { CircleLoader } from '../../components';
 
 const ProtectedRoute: React.FC = () => {
   const { user, setUser } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const authUser = localStorage.getItem('user');
-    if (authUser) {
-      const parsedUser = JSON.parse(authUser);
-      setUser(parsedUser);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   const authUser = localStorage.getItem('user');
+  //   if (authUser) {
+  //     const parsedUser = JSON.parse(authUser);
+  //     setUser(parsedUser);
+  //     setIsLoading(false);
+  //   } else {
+  //     setIsLoading(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   if (isLoading) {
     return (
@@ -28,7 +28,7 @@ const ProtectedRoute: React.FC = () => {
       </div>
     );
   }
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  return <Outlet />
 };
 
 export default ProtectedRoute;
