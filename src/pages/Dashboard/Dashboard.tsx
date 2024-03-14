@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   }
 
   const [text] = useTypewriter({
-    words: ["Welcome, what will you like for us to do for you today😉"],
+    words: ["Welcome, what will you like for us to do for you today"],
     typeSpeed: 40,
     delaySpeed: 3000,
   })
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center">
-          <div className="mt-8 mb-4 font-semibold text-2xl text-center mx-8">
+          <div className="mt-8 mb-4 font-semibold text-3xl text-center mx-8">
             {text}
           </div>
           <div>

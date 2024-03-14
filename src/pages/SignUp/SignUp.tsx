@@ -22,7 +22,6 @@ interface FormFields {
   email: string;
   password: string;
   confirmPassword: string;
-  timestamp: () => {};
 }
 
 const defaultFormFields: FormFields = {
@@ -30,9 +29,9 @@ const defaultFormFields: FormFields = {
   email: '',
   password: '',
   confirmPassword: '',
-  timestamp: serverTimestamp,
-
 };
+
+
 
 const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -79,19 +78,19 @@ const SignUp: React.FC = () => {
         redirectToLogin()
       }
 
-      const { password: _, ...formFieldsCopy } = formFields; // Create a copy without the 'password' field
+      const { password: _, ...formFieldsCopy } = formFields;
 
-      formFieldsCopy.timestamp = serverTimestamp();
-
-      await setDoc(doc(db, 'users', user.uid), formFieldsCopy);
-
-
+      // Write the form data to Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        ...formFieldsCopy,
+        timestamp: serverTimestamp() // Set the timestamp here
+      });
     } catch (err) {
       console.error('Error signing up', err);
       warn(`Error signing up, ${err}`);
       setLoading(false);
-      console.log(err);
     }
+
   }
 
 
