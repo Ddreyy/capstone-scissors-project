@@ -14,9 +14,9 @@ const Settings: React.FC = () => {
             {/* <img src={settingsImage} alt="" className="w-[80%] mx-auto" /> */}
             <Lottie animationData={animationData} className=' mx-auto'/>
           </div>
-          <div className="text-2xl md:text-4xl max-w-[28ch] text-center mx-4 mb-4 md:mb-4 md:text-[40px] font-bold">
+          {/* <div className="text-2xl md:text-4xl max-w-[28ch] text-center mx-4 mb-4 md:mb-4 md:text-[40px] font-bold">
               Update Your Account: Personalize Preferences and Elevate Your Usage.
-          </div>
+          </div> */}
           <div className="mb-8">
             <div className="w-[90%] text-center font-medium max-w-[70ch] md:mx-auto pr-4 md:pr-0 ml-4 md:ml-auto md:text-center">
               Our team is diligently working to implement this feature. In the meantime, feel free to

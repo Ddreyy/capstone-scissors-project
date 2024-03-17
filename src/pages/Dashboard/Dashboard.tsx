@@ -63,7 +63,7 @@ const Dashboard: React.FC = () => {
     <Layout>
       {loading ? (
         <div className="bg-gray-200 h-full md:h-[calc(100vh_-_60px)] overflow-y-auto">
-          <div className="flex mt-8 h-[50vh] bg-white m-10 rounded-lg justify-center items-center">
+          <div className="flex  h-full bg-white rounded-lg justify-center items-center">
             <CircleLoader color="#005AE2" />
           </div>
         </div>

@@ -1,16 +1,16 @@
 import React from 'react';
-import { CirclesWithBar } from 'react-loader-spinner';
+import { Hearts } from 'react-loader-spinner';
 
 interface LoaderProps {
   color?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ color = '#ffffff' }) => {
+const Loader: React.FC<LoaderProps> = ({ color = '#000000' }) => {
   return (
     <div className="flex h-fit justify-center items-center">
-      <CirclesWithBar
-        height={100}
-        width={100}
+      <Hearts
+        height={200}
+        width={200}
         color={color}
         visible={true}
         ariaLabel="circles-with-bar-loading"

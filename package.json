@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
     "react-loader-spinner": "^5.3.4",
+    "react-loading-skeleton": "^3.4.0",
     "react-router-dom": "^6.11.2",
     "react-router-hash-link": "^2.4.3",
     "react-simple-typewriter": "^5.0.1",
