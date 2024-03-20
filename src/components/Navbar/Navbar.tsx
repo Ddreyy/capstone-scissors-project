@@ -82,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = (): ReactElement => {
                 Pricing
               </NavHashLink>
             </li>
-            <li>
+            {/* <li>
               <NavHashLink
                 to="/dashboard/analytics"
                 smooth
@@ -95,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = (): ReactElement => {
               >
                 Analytics
               </NavHashLink>
-            </li>
+            </li> */}
             <li>
               <NavHashLink
                 to="/#faqs"
@@ -195,14 +195,14 @@ const Navbar: React.FC<NavbarProps> = (): ReactElement => {
                   Pricing
                 </HashLink>
               </div>
-              <div className="my-4 flex justify-center" onClick={showMenu}>
+              {/* <div className="my-4 flex justify-center" onClick={showMenu}>
                 <Link
                   to="/dashboard/analytics"
                   className="px-4 decoration-2 underline-offset-4 hover:underline font-semibold"
                 >
                   Analytics
                 </Link>
-              </div>
+              </div> */}
               <div className="my-4 flex justify-center" onClick={showMenu}>
                 <HashLink
                   to="/#faqs"

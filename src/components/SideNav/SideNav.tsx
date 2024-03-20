@@ -137,7 +137,7 @@ console.log(authenticatedUser?.profile_photo)
                 </div>
               </div>
             </NavLink>
-            {/* <NavLink
+            <NavLink
               to="/dashboard/my-links"
               className={`w-[calc(100%_-_3rem)]`}
             >
@@ -188,7 +188,7 @@ console.log(authenticatedUser?.profile_photo)
                   <div className="ml-3">My Links</div>
                 </div>
               </div>
-            </NavLink> */}
+            </NavLink>
             {/* <NavLink
               to="/dashboard/qr-codes"
               className={`w-[calc(100%_-_3rem)]`}
@@ -302,7 +302,7 @@ console.log(authenticatedUser?.profile_photo)
                 </span>
               </div>
             </NavLink>
-            <div className="w-[calc(100%_-_3rem)]">
+            {/* <div className="w-[calc(100%_-_3rem)]">
               <div className="px-4 my-2 py-2 bg-primary/10 font-semibold transition duration-300">
                 <span className="flex">
                   <div className="bg-primary w-8 aspect-square flex items-center justify-center text-white font-bold my-auto rounded-full">
@@ -314,7 +314,7 @@ console.log(authenticatedUser?.profile_photo)
                   <div className="ml-3 my-auto">{firstNameState}</div>
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -488,7 +488,7 @@ console.log(authenticatedUser?.profile_photo)
                     </div>
                   </div>
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   to="/dashboard/qr-codes"
                   className={`w-[calc(100%)] my-2`}
                 >
@@ -527,8 +527,8 @@ console.log(authenticatedUser?.profile_photo)
                       <div className="ml-3">QR Codes</div>
                     </div>
                   </div>
-                </NavLink>
-                <NavLink
+                </NavLink> */}
+                {/* <NavLink
                   to="/dashboard/analytics"
                   className="w-[calc(100%)] my-2"
                 >
@@ -572,7 +572,7 @@ console.log(authenticatedUser?.profile_photo)
                       <div className="ml-3">Analytics</div>
                     </span>
                   </div>
-                </NavLink>
+                </NavLink> */}
               </div>
               <div className="h-[1px] w-full bg-gray-200 my-4"></div>
               <NavLink to="/dashboard/settings" className="w-[calc(100%)] my-2">
@@ -602,7 +602,7 @@ console.log(authenticatedUser?.profile_photo)
                   </span>
                 </div>
               </NavLink>
-              <div className="w-[calc(100%)] my-2">
+              {/* <div className="w-[calc(100%)] my-2">
                 <div className="px-4 py-2 bg-primary/10 font-semibold">
                   <span className="flex">
                     <div className="bg-primary w-8 aspect-square flex items-center justify-center text-white font-bold my-auto rounded-full">
@@ -614,7 +614,7 @@ console.log(authenticatedUser?.profile_photo)
                     <div className="ml-3 my-auto">{firstNameState}</div>
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <button

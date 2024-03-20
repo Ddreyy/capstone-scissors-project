@@ -136,7 +136,7 @@ const Footer = () => {
             </li>{' '}
             <span className="mx-2 -mt-1">|</span>
             <li className="text-neutral-800 text-sm font-medium">
-              Scissor 2023
+              Scissor 2024
             </li>
           </ul>
         </div>

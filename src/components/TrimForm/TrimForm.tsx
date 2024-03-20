@@ -17,7 +17,7 @@ interface User {
   user?: object;
 }
 const TrimForm: React.FC = () => {
-  const { user } = useContext(UserContext);
+  const { user, addTrimmedUrl } = useContext(UserContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [copyMe, setCopyMe] = useState(false);
   const [textToCopy, setTextToCopy] = useState('');
@@ -26,6 +26,7 @@ const TrimForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { long_url, custom_url } = formFields;
+
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,15 +80,22 @@ const TrimForm: React.FC = () => {
         setCustomUrl(formFields.custom_url);
         setTextToCopy(`${shortUrl}/${formFields.custom_url}`);
         setCopyMe(true);
+
+        addTrimmedUrl(`https://tinyurl.com/${formFields.custom_url}`, formFields.long_url);
+
       } else {
         warn('Failed to trim the link, please try again');
         setLoading(false);
       }
   
       resetFormFields();
-    } catch (err) {
-      console.error(`An error occurred: ${err}`);
-      warn(`An error occurred: ${err}`);
+    } catch (err : any) {
+      if (err.response && err.response.status === 422) {
+        warn('Validation error: Please provide a unique Alias.');
+      } else {
+        console.error(`An error occurred: ${err}`);
+        warn(`An error occurred: ${err}`);
+      }
       setLoading(false);
     }
   };

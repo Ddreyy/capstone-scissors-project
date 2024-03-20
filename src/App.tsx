@@ -12,6 +12,7 @@ import {
   Analytics,
   QRCodes,
   Settings,
+  MyLinks,
 } from './pages';
 
 import { toast } from 'react-toastify';
@@ -50,6 +51,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/new" element={<NewLink />} />
+              <Route path="/dashboard/my-links" element={<MyLinks />} />
               <Route path="/dashboard/analytics" element={<Analytics />} />
               <Route path="/dashboard/qr-codes" element={<QRCodes />} />
               <Route path="/dashboard/settings" element={<Settings />} />

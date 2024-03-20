@@ -15,6 +15,7 @@ import { Button, Input, Footer, Loader } from '../../components';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../../utils/firebase/config'
+import { useAuth } from '../../contexts/UserContext/UserContext';
 
 
 interface FormFields {
@@ -39,6 +40,7 @@ const SignUp: React.FC = () => {
   const [loadingApple, setLoadingApple] = useState(false);
 
   const navigateTo = useNavigate();
+  const { setUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
   const { name, email, password, confirmPassword } = formFields;
@@ -221,7 +223,7 @@ const SignUp: React.FC = () => {
                           type={showPassword ? 'text' : 'password'}
                           name="confirmPassword"
                           id="confirmPassword"
-                          placeholder="Retype your password"
+                          placeholder="Confirm your password"
                           value={confirmPassword}
                           onChange={handleChange}
                           minLength={8}
@@ -247,7 +249,7 @@ const SignUp: React.FC = () => {
                     </div>
                   </div>
                   <Button disabled={loading} type="submit" buttonWidth={`full`}>
-                    {loading ? <Loader /> : 'Sign up with Email'}
+                    {loading ? <Loader /> : 'Sign up'}
                   </Button>
                 </form>
                 <div className="mx-4 max-w-[600px] md:mx-8">

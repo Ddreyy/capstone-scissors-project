@@ -1,6 +1,6 @@
 # Project Scissor
 
-A url shortening application, still in progress...
+A url shortening application
 
 ## Table of Contents
 
@@ -9,7 +9,7 @@ A url shortening application, still in progress...
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-  - [Dependencies](#dependencies)
+- [Dependencies](#dependencies)
 
 ## About
 
@@ -36,7 +36,7 @@ Follow these instructions to set up and run the project locally on your machine.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/rahmlad-aramide/scissor.git
+   git clone https://github.com/Ddreyy/capstone-scissors-project.git
    ```
 
 2. Navigate to the project directory:
