@@ -84,8 +84,8 @@ This will generate an optimized build in the `dist` directory, ready for deploym
 These are the main dependencies and their versions used in the project.
 
 - [React](https://reactjs.org) (version 18.2.0)
-- [React Router Dom](https://reactrouter.com) (version 6.11.2)
-- [Firebase](https://firebase.google.com) (version 9.22.1)
-- [React Toastify](https://fkhadra.github.io/react-toastify/introduction) (version 9.1.3)
+- [React Router Dom](https://reactrouter.com) (version 6.22.3)
+- [Firebase](https://firebase.google.com) (version 10.9.0)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction) (version 10.0.5)
 - [Clipboard Copy](https://www.npmjs.com/package/clipboard-copy) (version 4.0.1)
 
