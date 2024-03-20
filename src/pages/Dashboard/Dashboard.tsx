@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   }
 
   const [text] = useTypewriter({
-    words: ["Welcome, feel free to trim any website you want."],
+    words: ["Welcome, feel free to trim any link you want."],
     typeSpeed: 40,
     delaySpeed: 3000,
   })
